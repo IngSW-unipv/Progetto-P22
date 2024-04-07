@@ -1,6 +1,10 @@
 package src.it.unipv.ingsw.view;
 
-import src.it.unipv.ingsw.view.RistorantePanel;
+import src.it.unipv.ingsw.controller.UtenteController;
+import src.it.unipv.ingsw.database.DBConnectionSingleton;
+import src.it.unipv.ingsw.model.Ristorante;
+import src.it.unipv.ingsw.view.panel.RistorantePanel;
+import src.it.unipv.ingsw.controller.PosizioneController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,9 +18,10 @@ public class AppView extends JFrame {
 	
 	private JTextField posizione;
 	
-	private JButton cercaRistoranti;
-	
+	private JPanel ristorantiPanel;
 	private ArrayList<RistorantePanel> ristoranti;
+	
+	private JButton cercaRistoranti;
 	
 	public AppView() {
 		super();	
@@ -33,6 +38,7 @@ public class AppView extends JFrame {
     	//	questo comando serve solo per far avviare la view centrata nel monitor
     	setLocationRelativeTo(null);
     	setTitle("The Best APP");
+    	setResizable(false);
     	
 //	pannello principale
     	JPanel mainPanel = new JPanel(new BorderLayout());
@@ -43,13 +49,13 @@ public class AppView extends JFrame {
     	posizionePanel.setPreferredSize(new Dimension(LARGHEZZA, 50));
     	posizionePanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
 
-    	//componenti per posizione
+//componenti per posizione
     	JLabel posizioneLabel = new JLabel("Posizione :");
     	posizioneLabel.setForeground(Color.BLACK);
     	posizioneLabel.setFont(new Font("Arial", Font.BOLD, 16));
     	
-    	//immagine lente di ingrandimento
-    	ImageIcon icon = new ImageIcon(System.getProperty("user.home") + "\\Desktop\\lente.jpg");
+//immagine lente di ingrandimento
+    	ImageIcon icon = new ImageIcon(System.getProperty("user.home") + "\\eclipse-workspace\\Esercizi\\esame V1\\src\\it\\unipv\\ingsw\\immagini\\lente.jpg");
     	Image iconOriginale = icon.getImage();
     	Image resizedImage = iconOriginale.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
     	ImageIcon lente = new ImageIcon(resizedImage);
@@ -58,24 +64,14 @@ public class AppView extends JFrame {
     	
     	cercaRistoranti = new JButton(lente);
     	cercaRistoranti.setBackground(Color.WHITE);
+    	cercaRistoranti.setActionCommand("AppView.cercaRistoranti");
+    	cercaRistoranti.addActionListener(new PosizioneController(this));
     	
 //	pannello per i ristoranti
-    	JPanel ristorantiPanel = new JPanel();
+    	ristorantiPanel = new JPanel();
     	ristorantiPanel.setLayout(new BoxLayout(ristorantiPanel, BoxLayout.Y_AXIS));
     	
-    	//qua bisogna sostituire con un metodo per aggiungere tutti i ristoranti necessari
-    	ristoranti = new ArrayList<RistorantePanel> ();
-    	ristoranti.add(new RistorantePanel(Color.CYAN));
-    	ristoranti.add(new RistorantePanel(Color.BLACK));
-    	ristoranti.add(new RistorantePanel(Color.BLUE));
-    	ristoranti.add(new RistorantePanel(Color.MAGENTA));
-    	ristoranti.add(new RistorantePanel(Color.GREEN));
-    	ristoranti.add(new RistorantePanel(Color.GRAY));  	
-    	for (RistorantePanel r : ristoranti) {
-    		r.setPreferredSize(new Dimension(LARGHEZZA, 100));
-    		ristorantiPanel.add(r);
-         }
-    	
+//barra laterale per il pannello ristoranti	
     	JScrollPane ristorantiScrollPanel = new JScrollPane(ristorantiPanel);
     	ristorantiScrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -110,12 +106,41 @@ public class AppView extends JFrame {
     	setVisible(false);
 	}
 	
+	public String getPosizione() {
+		return posizione.getText();
+	}
+	
+	public int getLarghezza() {
+		return LARGHEZZA;
+	}
+	
+	public int getAltezza() {
+		return ALTEZZA;
+	}
+	
+	public void addRistoranti(ArrayList<RistorantePanel> a) {
+//		setVisible(false);
+//mi serve un metodo per rimuovere i RistorantiPanel precedentemente inseriti nel RistprantiPanel
+		ristorantiPanel.removeAll();
+		
+		ristoranti = a;
+		for (RistorantePanel rp : ristoranti) {
+//	    	r.setPreferredSize(new Dimension(LARGHEZZA, 100));
+	    	ristorantiPanel.add(rp);
+	    }
+//	    setVisible(true);
+//non so bene la differenza tra setVisible and revalidate (la so a grandi linee) ma entrambi "refreshano"/aggiornano la View
+	    revalidate();
+	}
+	    
 //	utilizzata per la chiusura della finestra
     private class DistruttoreFinestra extends WindowAdapter {
 //	occhio a mettere la w minuscola o altrimenti crea un nuovo metodo
     	@Override
     	public void windowClosing(WindowEvent e) {
 //    		System.out.print("debug");
+//    		DBConnectionSingleton dbConnection = DBConnectionSingleton.getInstance();
+//   		dbConnection.closeConnection();
     		dispose();
     		System.exit(0);
     	}

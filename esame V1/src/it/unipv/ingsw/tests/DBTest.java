@@ -3,30 +3,69 @@ package src.it.unipv.ingsw.tests;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import src.it.unipv.ingsw.database.DBConnection;
-import src.it.unipv.ingsw.database.UtenteDAO;
+import src.it.unipv.ingsw.database.DBConnectionSingleton;
+import src.it.unipv.ingsw.database.RistoranteDAO;
+import src.it.unipv.ingsw.database.ClienteDAO;
+import src.it.unipv.ingsw.database.PiattoDAO;
 import src.it.unipv.ingsw.model.Cliente;
+import src.it.unipv.ingsw.model.Ristorante;
+import src.it.unipv.ingsw.model.Piatto;
 
 public class DBTest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		DBConnection dbConnection = new DBConnection("splash_db");
+		DBConnectionSingleton dbConnection = DBConnectionSingleton.getInstance();
 
         // Esempio di utilizzo della connessione
         Connection connection = dbConnection.getConnection();
         
-        UtenteDAO u = new UtenteDAO(connection);
-        Cliente c = new Cliente("a@a.com", "a", "qwerty");
-        System.out.println(c.toString());
+/*      ClienteDAO ud = new ClienteDAO(connection);
+//      Cliente c = new Cliente("a@a.com", "a", "qwerty");
+//      System.out.println(c.toString());
         
-        u.insertCliente(c);
-        ArrayList<Cliente> res= u.selectAll();
+//      u.insertCliente(c);
+        ArrayList<Cliente> ris= ud.selectAll();
 
-		for(Cliente r : res)
-			System.out.println(r.toString());
+		for(Cliente c1 : ris)
+			System.out.println(c1.toString());
+		
+//-------------------------------------------------------------------------------
+		System.out.println("-----------------------------------------------------");
+//-------------------------------------------------------------------------------
+		RistoranteDAO rd = new RistoranteDAO(connection);
+		ArrayList<Ristorante> ris= rd.selectAll();
+        Ristorante r = new Ristorante("a", "via a", "a city", "a@a.com");
+        System.out.println(r.toString());
+        
+        rd.insertRistorante(r);
+		for(Ristorante r1 : ris)
+			System.out.println(r1.toString());
+			
+		System.out.println("-----------------------------------------------------");
+		
+		ris = rd.selectByCitta("Pavia");
+		for(Ristorante r2 : ris)
+			System.out.println(r2.toString());
 
-        // Chiusura della connessione quando hai finito
+ */   
+//-------------------------------------------------------------------------------
+        System.out.println("-----------------------------------------------------");
+//-------------------------------------------------------------------------------
+      		
+        PiattoDAO pd = new PiattoDAO(connection);
+        
+        ArrayList<Piatto> ris= pd.selectAll();
+		for(Piatto p : ris)
+			System.out.println(p.toString());
+		
+		System.out.println("-----------------------------------------------------");
+		
+		ris = pd.selectByRestaurantsId(1);
+		for(Piatto p : ris)
+			System.out.println(p.toString());
+		
+// Chiusura della connessione quando hai finito
         dbConnection.closeConnection();
 	}
 

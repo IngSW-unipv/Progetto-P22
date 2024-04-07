@@ -34,6 +34,7 @@ public class AccessoView extends JFrame{
 //	questo comando serve solo per far avviare la view centrata nel monitor
     	setLocationRelativeTo(null);
     	setTitle("Pagina per accedere");
+    	setResizable(false);
     	
 //	pannello principale
     	JPanel mainPanel = new JPanel();

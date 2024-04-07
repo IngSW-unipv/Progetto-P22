@@ -34,6 +34,7 @@ public class RegistrazioneView extends JFrame {
 //	questo comando serve solo per far avviare la view centrata nel monitor
     	setLocationRelativeTo(null);
     	setTitle("Pagina per registrarsi");
+    	setResizable(false);
     	
 //    	pannello principale
     	JPanel mainPanel = new JPanel();

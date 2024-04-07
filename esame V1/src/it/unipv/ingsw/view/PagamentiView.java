@@ -32,6 +32,7 @@ public class PagamentiView extends JFrame {
     	//	questo comando serve solo per far avviare la view centrata nel monitor
     	setLocationRelativeTo(null);
     	setTitle("Pagamenti");
+    	setResizable(false);
     	
 //	pannello principale
     	JPanel mainPanel = new JPanel(new BorderLayout());

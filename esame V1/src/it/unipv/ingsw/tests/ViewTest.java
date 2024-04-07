@@ -4,6 +4,7 @@ import src.it.unipv.ingsw.view.AccessoView;
 import src.it.unipv.ingsw.view.RegistrazioneView;
 import src.it.unipv.ingsw.view.AppView;
 import src.it.unipv.ingsw.view.PagamentiView;
+import src.it.unipv.ingsw.view.MenuView;
 
 public class ViewTest {
 
@@ -14,9 +15,11 @@ public class ViewTest {
 		RegistrazioneView test2 = new RegistrazioneView();
 		AppView test3 = new AppView();
 		PagamentiView test4 = new PagamentiView();
-		test1.setVisible(true);
-		test3.setVisible(true);
-		test4.setVisible(true);
+		MenuView test5 = new MenuView("Asdrubale");
+		test1.setVisible(false);
+		test2.setVisible(false);
+		test3.setVisible(false);
+		test4.setVisible(false);
+		test5.setVisible(true);
 	}
-
 }
