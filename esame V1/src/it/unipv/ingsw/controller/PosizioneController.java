@@ -31,7 +31,7 @@ public class PosizioneController implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 //	comado per test
-	System.out.println(e.getActionCommand());
+		System.out.println(e.getActionCommand());
 		try {
 			if (e.getActionCommand().equals("AppView.cercaRistoranti")) {
 //				System.out.println("true");

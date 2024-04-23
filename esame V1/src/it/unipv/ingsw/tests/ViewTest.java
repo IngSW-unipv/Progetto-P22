@@ -18,8 +18,8 @@ public class ViewTest {
 		MenuView test5 = new MenuView("Asdrubale");
 		test1.setVisible(false);
 		test2.setVisible(false);
-		test3.setVisible(false);
+		test3.setVisible(true);
 		test4.setVisible(false);
-		test5.setVisible(true);
+		test5.setVisible(false);
 	}
 }
