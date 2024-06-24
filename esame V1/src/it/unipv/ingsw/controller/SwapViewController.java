@@ -8,21 +8,23 @@ import java.awt.event.ActionListener;
 
 public class SwapViewController implements ActionListener{
 //	se non le si mettesse satiche, alla chiamata dell'altro costruttore mi andrebbe ad eliminare r
-	private static AccessoView a;
-	private static RegistrazioneView r;
+	private static AccessoView accessoView;
+	private static RegistrazioneView registrazioneView;
 	
 	public SwapViewController(AccessoView a) {
 		super();
-		SwapViewController.a = a;
+		accessoView = a;
 	}
 	
-	public SwapViewController(RegistrazioneView r) {
+/*	public SwapViewController(RegistrazioneView r) {
 		super();
 		SwapViewController.r = r;
 	}
+*/
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
 //	comado per test
 //		System.out.println(e.getActionCommand());
 		try {
@@ -39,26 +41,23 @@ public class SwapViewController implements ActionListener{
 	}
 	
 	private void showRegsitrazioneView() {
+		registrazioneView = new RegistrazioneView();
+		registrazioneView.getAccediButton().addActionListener(this);
 		try {
-			if (a.isVisible() & !r.isVisible()) {
-				r.setLocationRelativeTo(a);
-				a.dispose();
-				r.setVisible(true);
-			} else 
-				System.out.println("ERRORE: showRegistratioView!");
+			registrazioneView.setLocationRelativeTo(accessoView);
+			accessoView.dispose();
+			registrazioneView.setVisible(true);
 		} catch (NullPointerException n) {
 		System.err.println("ERRORE: Una delle View è nulla");
 		}
 	}
 	
 	private void showAccessoView() {
+// a questo punto appView e registrazioneView esistono entrambe (in teoria)
 		try {
-			if (r.isVisible() & !a.isVisible()) {
-				a.setLocationRelativeTo(r);
-				r.dispose();
-				a.setVisible(true);
-			} else 
-				System.out.println("ERRORE: showAccessoView!");
+			accessoView.setLocationRelativeTo(registrazioneView);
+			registrazioneView.dispose();
+			accessoView.setVisible(true);
 		} catch (NullPointerException n) {
 		System.err.println("ERRORE: Una delle View è nulla");
 		}

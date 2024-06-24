@@ -1,7 +1,7 @@
 package src.it.unipv.ingsw.view.panel;
 
 import java.awt.*;
-import java.awt.event.MouseAdapter;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
 import javax.swing.*;
@@ -14,8 +14,10 @@ public class RistorantePanel extends JPanel {
 	
 	private String nome;
 	
-	public RistorantePanel(String nome, String indirizzo, String citta) {
-		// qusto serve per dare un aspetto alla finestra e controlla se la libreria giusta esiste
+	private JButton ristoranteButton;
+	
+	public RistorantePanel(String nome, String indirizzo, String citta, int id) {
+		// questo serve per dare un aspetto alla finestra e controlla se la libreria giusta esiste
 		super();
     	try {
     	    UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -29,14 +31,6 @@ public class RistorantePanel extends JPanel {
 		setLayout(new GridLayout(1,2,10,0));
 		setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 5));
 		setBackground(Color.LIGHT_GRAY);
-		addMouseListener(new MenuController()
-/*			new MouseAdapter() {
-    		@Override
-    		public void mouseClicked(MouseEvent e) {
-                System.out.println("true" + nome);
-            }
-    	}
-*/		);
 		
 		JPanel labelPanel = new JPanel();
 		labelPanel.setLayout(new GridLayout(3,1));
@@ -49,21 +43,31 @@ public class RistorantePanel extends JPanel {
 		JLabel cittaLabel = new JLabel("Città: " + citta);
 		cittaLabel.setFont(new Font("Arial", Font.BOLD, 12));
 		
+		
 		//immagine lente di ingrandimento
-    	ImageIcon icon = new ImageIcon(System.getProperty("user.home") + "\\eclipse-workspace\\Esercizi\\esame V1\\src\\it\\unipv\\ingsw\\immagini\\"+ nome +".jpg");
+    	/*ImageIcon icon = new ImageIcon(System.getProperty("user.home") + "\\eclipse-workspace\\Esercizi\\esame V1\\src\\it\\unipv\\ingsw\\immagini\\"+ nome +".jpg");
     	Image iconOriginale = icon.getImage();
     	Image resizedImage = iconOriginale.getScaledInstance(180, 90, Image.SCALE_SMOOTH);
     	ImageIcon boh = new ImageIcon(resizedImage);
+		
     	
 		JLabel iconaLabel = new JLabel(boh);
 		iconaLabel.setPreferredSize(new Dimension(50,50));
-		
-		labelPanel.add(nomeLabel);
+		*/
 		labelPanel.add(indirizzoLabel);
 		labelPanel.add(cittaLabel);
+
+		ristoranteButton = new JButton(nome);
+		ristoranteButton.setActionCommand(String.valueOf(id));
+//		ristoranteButton.addActionListener(new MenuController());
+		add(ristoranteButton);
 		
-		
-		add(iconaLabel);
+		//add(iconaLabel);s
 		add(labelPanel);
 	}
+	
+	public JButton getRistoranteButton() {
+		return ristoranteButton;
+	}
+
 }

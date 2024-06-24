@@ -1,8 +1,8 @@
 package src.it.unipv.ingsw.view;
 
+import src.it.unipv.ingsw.controller.RegistrazioneController;
 //importo le classi controller
 import src.it.unipv.ingsw.controller.SwapViewController;
-import src.it.unipv.ingsw.controller.UtenteController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,11 +10,12 @@ import java.awt.event.*;
 
 public class RegistrazioneView extends JFrame {
 	private static final int LARGHEZZA = 400;
-	private static final int ALTEZZA = 280;
+	private static final int ALTEZZA = 300;
 	
 	private JTextField nomeField;
+	private JTextField cognomeField;
 	private JTextField emailField;
-	private JTextField passwordField;
+	private JPasswordField passwordField;
 	
 	private JButton accediButton;
 	private JButton registratiButton;
@@ -53,7 +54,7 @@ public class RegistrazioneView extends JFrame {
     	
     	JPanel pannelloInput = new JPanel();
     	pannelloInput.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-    	pannelloInput.setLayout(new GridLayout(3, 2, 0, 10));
+    	pannelloInput.setLayout(new GridLayout(4, 2, 0, 10));
     	
 //	pulsanti
     	accediButton = new JButton("Accedi");
@@ -62,7 +63,6 @@ public class RegistrazioneView extends JFrame {
     	accediButton.setBackground(new Color(227, 69, 16));
 // questi comansi servono per il controller in modo da diversificare i pulsanti delle due view
     	accediButton.setActionCommand("RegistrazioneView.accedi");
-    	accediButton.addActionListener(new SwapViewController(this));
         
     	registratiButton = new JButton("Registrati");
     	registratiButton.setFont(new Font("Arial", Font.BOLD, 14));
@@ -70,12 +70,15 @@ public class RegistrazioneView extends JFrame {
     	registratiButton.setBackground(new Color(227, 69, 16));
 // questi comansi servono per il controller in modo da diversificare i pulsanti delle due view
     	registratiButton.setActionCommand("RegistrazioneView.registrati");
-    	registratiButton.addActionListener(new UtenteController(this));
+    	registratiButton.addActionListener(new RegistrazioneController(this));
     	
     	
 //	etichette
     	JLabel nomeLabel = new JLabel("Nome :");
     	nomeLabel.setFont(new Font("Arial", Font.BOLD, 14));
+    	
+    	JLabel cognomeLabel = new JLabel("Cognome :");
+    	cognomeLabel.setFont(new Font("Arial", Font.BOLD, 14));
     	
     	JLabel emailLabel = new JLabel("Email :");
     	emailLabel.setFont(new Font("Arial", Font.BOLD, 14));
@@ -85,8 +88,9 @@ public class RegistrazioneView extends JFrame {
     	
 //	area testo
     	nomeField = new JTextField(12);
+    	cognomeField = new JTextField(12);
     	emailField = new JTextField(12);
-    	passwordField = new JTextField(12);
+    	passwordField = new JPasswordField(12);
 
 //	occhi che anche se si usa il borde layout, l'ordine di inserimento dei pannelli nel main conta
     	mainPanel.add(titolo, BorderLayout.NORTH);
@@ -94,6 +98,8 @@ public class RegistrazioneView extends JFrame {
 //	pannello input
     	pannelloInput.add(nomeLabel);
     	pannelloInput.add(nomeField);
+    	pannelloInput.add(cognomeLabel);
+    	pannelloInput.add(cognomeField);
     	pannelloInput.add(emailLabel);
     	pannelloInput.add(emailField);
     	pannelloInput.add(passwordLabel);
@@ -119,6 +125,26 @@ public class RegistrazioneView extends JFrame {
     	else
     		return "RegistrazioneView non è abilitata";		
     }
+	
+	public String getNome() {
+        return nomeField.getText();
+    }
+	
+	public String getCognome() {
+        return cognomeField.getText();
+    }
+	
+	public String getEmail() {
+        return emailField.getText();
+    }
+	
+	public String getPassword() {
+        return passwordField.getText();
+    }
+	
+	public JButton getAccediButton() {
+		return accediButton;
+	}
 	
 //	utilizzata per la chiusura della finestra
     private class DistruttoreFinestra extends WindowAdapter {

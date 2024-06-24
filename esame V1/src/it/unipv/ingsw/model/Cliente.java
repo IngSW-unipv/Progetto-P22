@@ -1,30 +1,27 @@
 package src.it.unipv.ingsw.model;
 
 public class Cliente extends Utente {
-    private int numeroOrdini;
     private int id;
-    private double conto;
+    private int credito;
+    private String cognome;
     private String password;
 
 //	questo serve quando chiediamo al DB che i clienti hanno una ID autoassegnato
-    public Cliente(int id, String email, String nome, String password) {
+    public Cliente(int id, String nome, String cognome, String email, String password, int credito) {
         super(email, nome);
-        numeroOrdini = 0;
-        conto = 0;
+        this.credito = credito;
         this.id = id;
+        this.cognome = cognome;
         this.password = password;
     }
     
 //	test per dao siccome mette l ID automaticamente nel DB
-    public Cliente(String email, String nome, String password) {
+    public Cliente(String nome, String cognome, String email, String password) {
         super(email, nome);
-        numeroOrdini = 0;
-        conto = 0;
+// superfluo tanto lo fa il db
+        credito = 0;
+        this.cognome = cognome;
         this.password = password;
-    }
-
-    public int getNumeroOrdini() {
-        return numeroOrdini;
     }
     
     public int getID() {
@@ -33,6 +30,14 @@ public class Cliente extends Utente {
 
     public String getPassword() {
         return password;
+    }
+    
+    public String getCognome() {
+        return cognome;
+    }
+    
+    public int getCredito() {
+        return credito;
     }
 
     @Override

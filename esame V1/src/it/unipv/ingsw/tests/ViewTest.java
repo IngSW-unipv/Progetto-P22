@@ -12,14 +12,15 @@ public class ViewTest {
 		// TODO Auto-generated method stub
 		
 		AccessoView test1 = new AccessoView();
-		RegistrazioneView test2 = new RegistrazioneView();
-		AppView test3 = new AppView();
-		PagamentiView test4 = new PagamentiView();
-		MenuView test5 = new MenuView("Asdrubale");
-		test1.setVisible(false);
-		test2.setVisible(false);
-		test3.setVisible(true);
-		test4.setVisible(false);
-		test5.setVisible(false);
+//		RegistrazioneView test2 = new RegistrazioneView();
+//		AppView test3 = AppView.getIstance();
+//		PagamentiView test4 = new PagamentiView();
+//		MenuView test5 = MenuView.getIstance();
+		test1.setVisible(true);
+//		test2.setVisible(false);
+//		test3.setVisible(false);
+//		test5.setVisible(false);
+		//---------
+//		test4.setVisible(false);
 	}
 }

@@ -1,9 +1,11 @@
 package src.it.unipv.ingsw.tests;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import src.it.unipv.ingsw.database.DBConnectionSingleton;
+import src.it.unipv.ingsw.database.DBCreatorDAO;
 import src.it.unipv.ingsw.database.RistoranteDAO;
 import src.it.unipv.ingsw.database.ClienteDAO;
 import src.it.unipv.ingsw.database.PiattoDAO;
@@ -13,7 +15,7 @@ import src.it.unipv.ingsw.model.Piatto;
 
 public class DBTest {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		DBConnectionSingleton dbConnection = DBConnectionSingleton.getInstance();
 
@@ -50,9 +52,9 @@ public class DBTest {
 
  */   
 //-------------------------------------------------------------------------------
-        System.out.println("-----------------------------------------------------");
+//        System.out.println("-----------------------------------------------------");
 //-------------------------------------------------------------------------------
-      		
+ /*     		
         PiattoDAO pd = new PiattoDAO(connection);
         
         ArrayList<Piatto> ris= pd.selectAll();
@@ -64,7 +66,10 @@ public class DBTest {
 		ris = pd.selectByRestaurantsId(1);
 		for(Piatto p : ris)
 			System.out.println(p.toString());
-		
+*/
+        DBCreatorDAO creator = new DBCreatorDAO(connection);
+        creator.CreaDB();
+        creator.PopolaDB();
 // Chiusura della connessione quando hai finito
         dbConnection.closeConnection();
 	}

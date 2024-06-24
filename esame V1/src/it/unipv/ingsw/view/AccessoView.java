@@ -1,8 +1,8 @@
 package src.it.unipv.ingsw.view;
 
 // importo le classi controller
+import src.it.unipv.ingsw.controller.AccessoController;
 import src.it.unipv.ingsw.controller.SwapViewController;
-import src.it.unipv.ingsw.controller.UtenteController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,10 +10,15 @@ import java.awt.event.*;
 
 public class AccessoView extends JFrame{	
 	private static final int LARGHEZZA = 400;
-	private static final int ALTEZZA = 250;
+	private static final int ALTEZZA = 270;
 	
 	private JTextField emailField;
 	private JPasswordField passwordField;
+	
+	private JLabel errorePwLabel;
+	private JLabel erroreEmailLabel;
+	
+	private JPanel mainPanel;
 	
 	private JButton accediButton;
 	private JButton registratiButton;
@@ -37,7 +42,7 @@ public class AccessoView extends JFrame{
     	setResizable(false);
     	
 //	pannello principale
-    	JPanel mainPanel = new JPanel();
+    	mainPanel = new JPanel();
     	mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 20, 20));
     	setLayout(new BorderLayout());
 
@@ -62,7 +67,7 @@ public class AccessoView extends JFrame{
     	accediButton.setBackground(new Color(227, 69, 16));
     	// questi comansi servono per il controller in modo da diversificare i pulsanti delle due view
     	accediButton.setActionCommand("AccessoView.accedi");
-    	accediButton.addActionListener(new UtenteController(this));
+    	accediButton.addActionListener(new AccessoController(this));
         
     	registratiButton = new JButton("Registrati");
     	registratiButton.setFont(new Font("Arial", Font.BOLD, 14));
@@ -107,6 +112,14 @@ public class AccessoView extends JFrame{
                 frame.setVisible(true);
             }
     	});
+// label che vengono stampade in caso di errore  	
+    	errorePwLabel = new JLabel("Password Errata");
+    	errorePwLabel.setForeground(Color.BLACK);
+    	errorePwLabel.setFont(new Font("Arial", Font.BOLD, 20));
+    	
+    	erroreEmailLabel = new JLabel("Utente inesistente, vuoi registrarti?");
+    	erroreEmailLabel.setForeground(Color.BLACK);
+    	erroreEmailLabel.setFont(new Font("Arial", Font.BOLD, 20));
     	
 //	area testo
     	emailField = new JTextField(12);
@@ -123,8 +136,7 @@ public class AccessoView extends JFrame{
     	pannelloInput.add(passwordField);
     	mainPanel.add(pannelloInput, BorderLayout.CENTER);
 
-//	test
-    	
+//	test 	
     	mainPanel.add(pswDimenticata);
     	
 //	pannello tasti
@@ -134,6 +146,9 @@ public class AccessoView extends JFrame{
 
 //	aggiunta main pannel
     	add(mainPanel);
+ 
+// permette di premere invio invece di premere il tasto invio
+    	mainPanel.getRootPane().setDefaultButton(accediButton);
     	
     	setVisible(false);
     }
@@ -146,6 +161,38 @@ public class AccessoView extends JFrame{
     	else
     		return "AccessoView non è abilitata";		
     }
+    
+    public JPanel getMainPanel() {
+    	return mainPanel;
+    }
+    
+    public void errorePassword() {
+    	getMainPanel().add(errorePwLabel);
+    }
+    
+    public void erroreEmail() {
+    	System.out.println("ciaooooooo");
+    	mainPanel.remove(erroreEmailLabel);
+    	mainPanel.remove(errorePwLabel);
+    	mainPanel.add(erroreEmailLabel);
+    	mainPanel.revalidate();
+        mainPanel.repaint();
+    }
+    
+    public void emailOK() {
+    	System.out.println("ciao");
+    	mainPanel.remove(erroreEmailLabel);
+    	mainPanel.revalidate();
+        mainPanel.repaint();
+    }
+    
+    public String getEmail(){
+		return emailField.getText();
+	}
+
+	public String getPassword(){
+		return passwordField.getText();
+	}
     
 //	utilizzata per la chiusura della finestra
     private class DistruttoreFinestra extends WindowAdapter {

@@ -3,7 +3,7 @@ package src.it.unipv.ingsw.model;
 public class Piatto{
 	private int id;
 	private String nome;
-	private boolean disponibile;
+	private int disponibile;
 	private int prepTime;
 	private int costo;
 	private int ristoranteId;
@@ -19,10 +19,7 @@ public class Piatto{
 	
 	private void initPiatto(String nome, int disponibile, int prepTime, int costo, int ristoranteId) {
 		this.nome = nome;
-		if(disponibile != 0)
-			this.disponibile = true;
-		else
-			this.disponibile = false;
+		this.disponibile = disponibile;
 		this.prepTime = prepTime;
 		this.costo = costo;
 		this.ristoranteId = ristoranteId;
@@ -36,8 +33,12 @@ public class Piatto{
 		return nome;
 	}
 
-	public boolean isDisponibile() {
+	public int isDisponibile() {
 		return disponibile;
+	}
+	
+	public void setDisponibile(int i) {
+		disponibile = i;
 	}
 
 	public int getPrepTime() {
